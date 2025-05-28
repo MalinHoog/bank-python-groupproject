@@ -3,8 +3,6 @@
 # can lend (from its own accounts)
 # can transfer (to/from other banks)
 
-from account import Account
-from db import Db
 from account import Account # Importerar Account-klassen (för att skapa och hantera konton)
 from db import Db # Importerar Db-klassen (för att hantera databasanslutning)
 
@@ -43,14 +41,9 @@ class Bank:
         """
         cursor = self.conn.cursor()
         cursor.execute("SELECT * FROM banks WHERE banknr = %s", [banknr])
-        bank = cursor.fetchone()
-        if(bank[0]):
         bank = cursor.fetchone()  # Hämtar en enda rad (bank) från resultatet
         if(bank[0]): # Om banken finns (bank[0] = id)
             print(f"Bank loaded.")
-            self.id = bank[0]
-            self.name = bank[1]
-            self.banknr = bank[2]
             self.id = bank[0] # Sätter bank-id på objektet
             self.name = bank[1] # Sätter bankens namn
             self.banknr = bank[2] # Sätter banknummer
@@ -61,8 +54,6 @@ class Bank:
             return None
 
     def add_customer(self, customer):
-        self.customers.append(customer)
-        self.add_account(customer, "Personal_account", customer.ssn) # add a personal account
         """
         Lägger till en kund till bankens lista över kunder.
         Skapar också ett personkonto (standardkonto) för kunden automatiskt.
@@ -72,8 +63,6 @@ class Bank:
         return customer
 
     def add_account(self, customer, type, nr):
-        new_account = Account().create(customer, self, type, nr)
-        self.accounts.append(new_account)
         """
         Skapar ett konto för en kund och lägger till i bankens lista.
         Använder Account-klassen för att skapa det nya kontot.
