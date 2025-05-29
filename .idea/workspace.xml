@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65c2601c-ae55-439d-a9cc-4417f6cf450a" name="Changes" comment="" />
+    <list default="true" id="65c2601c-ae55-439d-a9cc-4417f6cf450a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +15,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Lompish"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MalinHoog/bank-python-groupproject.git&quot;,
+    &quot;accountId&quot;: &quot;ef960d37-6210-4743-b19f-338dae011da3&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -53,6 +67,7 @@
       <updated>1748332765940</updated>
       <workItem from="1748332767164" duration="1364000" />
       <workItem from="1748421212017" duration="6224000" />
+      <workItem from="1748522602857" duration="336000" />
     </task>
     <servers />
   </component>
