@@ -94,4 +94,3 @@ class Account:
             return -amount # Returnerar uttaget belopp
         else:
             return 0 # Uttag nekas, för lite pengar
-
