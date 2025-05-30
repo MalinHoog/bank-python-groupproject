@@ -3,13 +3,90 @@
 # has interest
 # has balance
 # has currency
+import psycopg2
+import re
 import random
+import string
 
 from db import Db  # Importerar databasanslutningsklassen
 from transaction import Transaction # Importerar klassen för hantering av transaktioner
 
 
 class Account:
+    def __init__(self, db_config):
+        self.conn = psycopg2.connect(**db_config)
+
+    def validate_inputs(self, data):
+        # SSN-format YYMMDD-XXXX (11 tecken)
+        if not re.match(r'^\d{6}-\d{4}$', data['ssn']):
+            raise ValueError("Ogiltigt personnummer. Format: YYMMDD-XXXX")
+
+        # Telefon: börjar med 0 men inte 00
+        if not re.match(r'^0(?!0)\d+$', data['phone']):
+            raise ValueError("Ogiltigt telefonnummer. Måste börja med 0 men inte 00")
+
+        # Postnummer: exakt 5 siffror
+        if not re.match(r'^\d{5}$', data['post_code']):
+            raise ValueError("Postnummer måste vara exakt 5 siffror")
+
+    def generate_unique_account_number(self):
+        with self.conn.cursor() as cur:
+            while True:
+                letters = ''.join(random.choices(string.ascii_uppercase, k=4))
+                digits = ''.join(random.choices(string.digits, k=14))
+                account_number = f"SE8902-{letters}{digits}"
+                cur.execute("SELECT 1 FROM bank_account WHERE account_number = %s", (account_number,))
+                if not cur.fetchone():
+                    return account_number
+
+    def create_account(self, data):
+        self.validate_inputs(data)
+
+        try:
+            with self.conn:
+                cur = self.conn.cursor()
+
+                # 1. Municipality
+                cur.execute("SELECT id FROM municipality WHERE name = %s", (data['municipality'],))
+                row = cur.fetchone()
+                if row:
+                    municipality_id = row[0]
+                else:
+                    cur.execute("INSERT INTO municipality (name) VALUES (%s) RETURNING id", (data['municipality'],))
+                    municipality_id = cur.fetchone()[0]
+
+                # 2. Post Code
+                cur.execute("SELECT code FROM post_code WHERE code = %s", (data['post_code'],))
+                if not cur.fetchone():
+                    cur.execute("INSERT INTO post_code (code, municipality_id) VALUES (%s, %s)",
+                                (data['post_code'], municipality_id))
+
+                # 3. Address
+                cur.execute("INSERT INTO address (street, post_code) VALUES (%s, %s) RETURNING id",
+                            (data['street'], data['post_code']))
+                address_id = cur.fetchone()[0]
+
+                # 4. Customer
+                cur.execute("""
+                    INSERT INTO customer (name, ssn, phone, address_id)
+                    VALUES (%s, %s, %s, %s) RETURNING id
+                """, (data['name'], data['ssn'], data['phone'], address_id))
+                customer_id = cur.fetchone()[0]
+
+                # 5. Bank account
+                account_number = self.generate_unique_account_number()
+                cur.execute("""
+                    INSERT INTO bank_account (customer_id, account_number)
+                    VALUES (%s, %s) RETURNING account_number, amount
+                """, (customer_id, account_number))
+                acc = cur.fetchone()
+                print(f"Konto skapades! Nr: {acc[0]} | Saldo: {acc[1]}")
+
+        except Exception as e:
+            print("[Fel vid kontoskapande]:", e)
+
+    def close(self):
+        self.conn.close()
 
     def __init__(self):
         self.conn = Db().get_conn() # Skapar en databasanslutning
@@ -94,3 +171,4 @@ class Account:
             return -amount # Returnerar uttaget belopp
         else:
             return 0 # Uttag nekas, för lite pengar
+
