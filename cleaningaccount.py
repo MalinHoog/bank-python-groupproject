@@ -87,11 +87,32 @@ df["Phone"] = df["Phone"].str.replace(" ", "").str.replace("-", "")
 df.to_csv("sebank_customers_cleaned_again.csv", index=False)
 """
 
-
+"""
 # vi upptäckte att det fanns vissa adresser som heter typ storgatan 0 osv, så vi bestämde bara att ta en titt på dessa för att se om det är något som inte ser helt ok ut.
 df = pd.read_csv("sebank_customers_cleaned_again.csv")
 
 matchar_nollor = df[df["Street"].astype(str).str.contains(r"\b0{1,3}\b", regex=True)]
 
 print(matchar_nollor[["Customer", "Street"]])
-# i den sökningen kan vi se att det finns en som har en gata som är parkstigen 00, vilket vi inte tror stämmer
+# i den sökningen kan vi se att det finns en som har en gata som är parkstigen 00, vilket vi inte tror stämmer, så den personen kommer rensas ut i en egen fil - en person vi tycker banken kanske ska ta beslutet själv om det ska redigeras eller blockas??
+
+
+"""
+
+"""
+# i den här rensningen så 
+df = pd.read_csv("sebank_customers_cleaned_again.csv")
+
+# Matcha rader där Street slutar med ett mellanslag + exakt "00"
+med_gatunummer_00 = df[df["Street"].astype(str).str.strip().str.match(r".*\s00$")]
+
+# Spara dessa till egen fil
+med_gatunummer_00.to_csv("adresser_med_gatunummer_00.csv", index=False)
+
+# Skapa rensad DataFrame utan dessa rader
+utan_gatunummer_00 = df[~df["Street"].astype(str).str.strip().str.match(r".*\s00$")]
+
+# Spara rensad data
+utan_gatunummer_00.to_csv("sebank_customers_superclean.csv", index=False)
+
+"""
