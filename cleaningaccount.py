@@ -77,3 +77,21 @@ df.to_csv("sebank_customers_cleaned.csv", index=False)
 # print("Filen har rengjorts och sparats som 'sebank_customers_cleaned.csv'")
 """
 
+# kod som körs för att snygga till telefonnummer, så att det inte finns några mellanslag eller bindesträck.
+""" 
+df = pd.read_csv("sebank_customers_cleaned.csv")
+
+# Ta bort mellanslag och bindestreck i telefonnummer
+df["Phone"] = df["Phone"].str.replace(" ", "").str.replace("-", "")
+
+df.to_csv("sebank_customers_cleaned_again.csv", index=False)
+"""
+
+
+# vi upptäckte att det fanns vissa adresser som heter typ storgatan 0 osv, så vi bestämde bara att ta en titt på dessa för att se om det är något som inte ser helt ok ut.
+df = pd.read_csv("sebank_customers_cleaned_again.csv")
+
+matchar_nollor = df[df["Street"].astype(str).str.contains(r"\b0{1,3}\b", regex=True)]
+
+print(matchar_nollor[["Customer", "Street"]])
+# i den sökningen kan vi se att det finns en som har en gata som är parkstigen 00, vilket vi inte tror stämmer
