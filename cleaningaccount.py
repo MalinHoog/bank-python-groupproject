@@ -1,6 +1,8 @@
 import pandas as pd
 import re
 
+# den
+
 # Körd kod för att rensa ut null värden i alla kolumner (det verkar inte som att det finns några nullvärden i sebank_customers_with_accounts.csv)
 df = pd.read_csv("data\sebank_customers_with_accounts.csv")
 
