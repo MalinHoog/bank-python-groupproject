@@ -118,6 +118,8 @@ df_transactions["amount_sek"] = df_transactions.apply(convert_to_sek, axis=1)
 print(f"\nConverted currencies to SEK:")
 print(df_transactions[["currency", "amount", "amount_sek"]].tail(20))
 
+df_transactions_sorted = df_transactions.sort_values(by=["sender_account", "timestamp"]).copy()
+
 # Skapa low risk currencies
 low_risk_currencies = {"SEK", "JPY"}
 
