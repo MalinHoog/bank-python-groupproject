@@ -5,7 +5,7 @@ import re
 df = pd.read_csv("data/sebank_customers_with_accounts.csv")
 
 
-# först rensar vi bland telefonnummer
+# Först rensar vi bland telefonnummer så alla följer samma mönster, alltså så alla börjar på 0 och inte +46 (0) eller liknande, inga mellanslag eller bindesträck
 def clean_phone(phone):
     phone = str(phone).strip()
     phone = re.sub(r'\D', '', phone)  # Ta bort allt som inte är siffror
@@ -21,7 +21,7 @@ def clean_phone(phone):
 df["Phone"] = df["Phone"].apply(clean_phone)
 
 
-# ===== 2. Standardisera personnummer =====
+# ser till att all data i personnummer-kolummnen följer samma mönster (YYMMDD-XXXX)
 def clean_personnummer(pnr):
     pnr = str(pnr).strip().replace("-", "")
     return pnr[:6] + "-" + pnr[6:] if len(pnr) == 10 else pnr
@@ -30,7 +30,7 @@ def clean_personnummer(pnr):
 df["Personnummer"] = df["Personnummer"].apply(clean_personnummer)
 
 
-# ===== 3. Korrigera BankAccount =====
+# dubbelkollar att alla accounts startar med SE8902, och om de istället skulle råka starta med 8902 så konverteras de om till att följa rätt mönster
 def clean_bank_account(acc):
     acc = str(acc).strip()
     if not acc.startswith("SE8902"):
@@ -41,7 +41,7 @@ def clean_bank_account(acc):
 
 df["BankAccount"] = df["BankAccount"].apply(clean_bank_account)
 
-# ===== 4. Dela upp adressen =====
+# Address var lite mer komplicerad för vi ville inte att de skulle ligga i en egen kolumn, så den delas upp i street, postcode och city, droppar den forna address kolumnen och mer: alla gatunummer som börjar på 0 eller 00 osv redigeras till att endast vara nästkommande siffra, om gatunummret är 0 lämnas det, men om det skulle vara två nollor eller flera så ska de hamna i en egen fil för att skickas tillbaka till banken - ska det vara 0 eller är det helt fel siffror?
 streets, postcodes, cities, garbage_rows = [], [], [], []
 
 for address in df["Address"]:
@@ -77,19 +77,17 @@ for address in df["Address"]:
         postcodes.append(None)
         cities.append(None)
 
-# Lägg till nya kolumner
 df["Street"] = streets
 df["PostalCode"] = postcodes
 df["City"] = cities
 
-# ===== 5. Ta bort rader där gatunummer är bara 00, 000 etc. =====
 clean_df = df.dropna(subset=["Street", "PostalCode", "City"])
 garbage_df = df[df["Street"].isna()]
 
-# ===== 6. Välj kolumner i rätt ordning =====
+# Vi lägger om så att kolumnerna hamnar i en specfik ordning
 clean_df = clean_df[["Customer", "Phone", "Personnummer", "BankAccount", "Street", "PostalCode", "City"]]
 garbage_df = garbage_df[["Customer", "Phone", "Personnummer", "BankAccount", "Address"]]
 
-# ===== 7. Spara resultat =====
+# tillslut kan vi spara resultatet i två olika filer
 clean_df.to_csv("data/sebank_customers_cleanedandready.csv", index=False)
 garbage_df.to_csv("data/sebank_customers_address_00_only.csv", index=False)
