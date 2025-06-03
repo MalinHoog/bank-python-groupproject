@@ -285,3 +285,21 @@ fast_pass_through = merged[(merged["time_diff_minutes"] > 0) & (merged["time_dif
 print(f"\nTransactions where account makes another transactions in 30 minutes: {len(fast_pass_through)}")
 print(fast_pass_through[["account", "received_time", "sent_time", "time_diff_minutes"]].head(10))
 
+# Skapa CSV
+selected_columns = [
+    "transaction_id", "timestamp", "amount", "currency",
+    "sender_account", "receiver_account", "sender_country",
+    "sender_municipality", "receiver_country", "receiver_municipality",
+    "transaction_type", "notes", "amount_sek"
+]
+
+# Kolumner som måste vara ifyllda
+required_columns = [
+    "transaction_id", "timestamp", "amount", "currency",
+    "sender_account", "receiver_account", "sender_country",
+    "receiver_country", "transaction_type"
+]
+
+# Skapa tvättad DataFrame och spara som CSV
+clean_df = df_transactions[selected_columns].dropna(subset=required_columns)
+clean_df.to_csv("./data/clean_transactions.csv", index=False)
