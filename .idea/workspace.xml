@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65c2601c-ae55-439d-a9cc-4417f6cf450a" name="Changes" comment="" />
+    <list default="true" id="65c2601c-ae55-439d-a9cc-4417f6cf450a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/adresser_med_gatunummer_00.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/otherdatafiles/adresser_med_gatunummer_00.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cleaningaccount.py" beforeDir="false" afterPath="$PROJECT_DIR$/cleaningaccount.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cleaningaccountsagain.py" beforeDir="false" afterPath="$PROJECT_DIR$/cleaningaccountsagain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sebank_customers_cleaned.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/otherdatafiles/sebank_customers_cleaned.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sebank_customers_cleaned_again.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/otherdatafiles/sebank_customers_cleaned_again.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sebank_customers_cleaned_no_nulls.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/otherdatafiles/sebank_customers_cleaned_no_nulls.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sebank_customers_superclean.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/otherdatafiles/sebank_customers_superclean.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sebank_customers_finalfinally.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/sebank_customers_finalfinally.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sebank_customers_superclean_phonefixed.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/otherdatafiles/sebank_customers_superclean_phonefixed.csv" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,6 +49,7 @@
     "Python.cleaningaccountsagain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "account-file-fixes",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -47,6 +58,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\malin\Documents\GitHub\python-bank-project-start-main\bank-python-groupproject\data" />
+      <recent name="C:\Users\malin\Documents\GitHub\python-bank-project-start-main\bank-python-groupproject\data\otherdatafiles" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -67,6 +84,7 @@
       <workItem from="1748421212017" duration="6224000" />
       <workItem from="1748522602857" duration="336000" />
       <workItem from="1748949543851" duration="2658000" />
+      <workItem from="1748952277310" duration="637000" />
     </task>
     <servers />
   </component>
@@ -74,6 +92,6 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bank_python_groupproject$cleaningaccountsagain.coverage" NAME="cleaningaccountsagain Coverage Results" MODIFIED="1748951969903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/bank_python_groupproject$cleaningaccountsagain.coverage" NAME="cleaningaccountsagain Coverage Results" MODIFIED="1748953047324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
