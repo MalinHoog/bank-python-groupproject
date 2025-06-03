@@ -77,7 +77,7 @@ df.to_csv("sebank_customers_cleaned.csv", index=False)
 
 # Kod som körs för att snygga till telefonnummer, så att det inte finns några mellanslag eller bindesträck.
 
-df = pd.read_csv("sebank_customers_cleaned.csv")
+df = pd.read_csv("data/sebank_customers_cleaned.csv")
 
 # Ta bort mellanslag och bindestreck i telefonnummer
 df["Phone"] = df["Phone"].str.replace(" ", "").str.replace("-", "")
@@ -87,7 +87,7 @@ df.to_csv("sebank_customers_cleaned_again.csv", index=False)
 
 
 # vi upptäckte att det fanns vissa adresser som heter typ storgatan 0 osv, så vi bestämde bara att ta en titt på dessa för att se om det är något som inte ser helt ok ut.
-df = pd.read_csv("sebank_customers_cleaned_again.csv")
+df = pd.read_csv("data/sebank_customers_cleaned_again.csv")
 
 matchar_nollor = df[df["Street"].astype(str).str.contains(r"\b0{1,3}\b", regex=True)]
 
@@ -97,7 +97,7 @@ print(matchar_nollor[["Customer", "Street"]])
 
 
 # i den här rensningen så rensar vi ut de adresser som verkar ha lite udda gatunummer, typ 00
-df = pd.read_csv("sebank_customers_cleaned_again.csv")
+df = pd.read_csv("data/sebank_customers_cleaned_again.csv")
 
 # Matcha rader där Street slutar med ett mellanslag + exakt "00"
 med_gatunummer_00 = df[df["Street"].astype(str).str.strip().str.match(r".*\s00$")]
