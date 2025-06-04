@@ -51,7 +51,7 @@ Base.metadata.create_all(engine)
 # Ladda och spara data
 try:
     # Läs in kunddata
-    df_customers = pd.read_csv("data/sebank_customer_FINAL.csv")
+    df_customers = pd.read_csv("data/customers_clean.csv")
     print("Customer CSV columns:", df_customers.columns.tolist())
 
     # Säkerställ att alla telefonnummer är strängar och börjar med "0"
