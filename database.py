@@ -6,8 +6,10 @@ from sqlalchemy import create_engine, Column, String, Integer, Numeric, Text, TI
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import declarative_base, sessionmaker
 
+# Deklarera basen för modeller
 Base = declarative_base()
 
+# Skapa Customer-tabellen
 class Customer(Base):
     __tablename__ = 'customers'
 
@@ -20,6 +22,7 @@ class Customer(Base):
     postalcode = Column(String(10))
     city = Column(String(100))
 
+# Skapa Transaction-tabellen
 class Transaction(Base):
     __tablename__ = 'transactions'
 
@@ -37,13 +40,17 @@ class Transaction(Base):
     notes = Column(Text)
     amount_sek = Column(Numeric)
 
-engine = create_engine("postgresql://postgres:Fo3aex6626@localhost:5432/postgres")
+# Skapa anslutning till databasen 'bank_womans'
+engine = create_engine("postgresql://postgres:Fo3aex6626@localhost:5432/bank_womans")
 Session = sessionmaker(bind=engine)
 session = Session()
 
+# Skapa tabeller i databasen
 Base.metadata.create_all(engine)
 
+# Ladda och spara data
 try:
+    # Läsa in kunddata
     df_customers = pd.read_csv("data/sebank_customer_FINAL.csv")
     print("Customer CSV columns:", df_customers.columns.tolist())
 
@@ -60,6 +67,7 @@ try:
         customer = Customer(**customer_data)
         session.add(customer)
 
+    # Läsa in transaktionsdata
     df_transactions = pd.read_csv("data/clean_transactions.csv")
     print("Transactions CSV columns:", df_transactions.columns.tolist())
 
@@ -71,6 +79,7 @@ try:
             transaction = Transaction(**row_data)
             session.add(transaction)
 
+    # Bekräfta ändringarna
     session.commit()
 
 except Exception as e:
