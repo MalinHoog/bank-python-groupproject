@@ -6,7 +6,6 @@ from sqlalchemy import create_engine, Column, String, Integer, Numeric, Text, TI
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-
 Base = declarative_base()
 
 class Customer(Base):
@@ -44,32 +43,40 @@ session = Session()
 
 Base.metadata.create_all(engine)
 
-df_customers = pd.read_csv("data/sebank_customer_FINAL.csv")
-print("Customer CSV columns:", df_customers.columns.tolist())
+try:
+    df_customers = pd.read_csv("data/sebank_customer_FINAL.csv")
+    print("Customer CSV columns:", df_customers.columns.tolist())
 
-for _, row in df_customers.iterrows():
-    customer_data = {
-        "customer": row["Customer"],
-        "phone": row["Phone"],
-        "personnummer": row["Personnummer"],
-        "bankaccount": row["BankAccount"],
-        "street": row["Street"],
-        "postalcode": row["PostalCode"],
-        "city": row["City"]
-    }
-    customer = Customer(**customer_data)
-    session.add(customer)
+    for _, row in df_customers.iterrows():
+        customer_data = {
+            "customer": row["Customer"],
+            "phone": row["Phone"],
+            "personnummer": row["Personnummer"],
+            "bankaccount": row["BankAccount"],
+            "street": row["Street"],
+            "postalcode": row["PostalCode"],
+            "city": row["City"]
+        }
+        customer = Customer(**customer_data)
+        session.add(customer)
 
-df_transactions = pd.read_csv("data/clean_transactions.csv")
-print("Transactions CSV columns:", df_transactions.columns.tolist())
+    df_transactions = pd.read_csv("data/clean_transactions.csv")
+    print("Transactions CSV columns:", df_transactions.columns.tolist())
 
-for _, row in df_transactions.iterrows():
-    row_data = row.to_dict()
-    row_data['transaction_id'] = uuid.UUID(row_data['transaction_id'])
+    for _, row in df_transactions.iterrows():
+        row_data = row.to_dict()
+        row_data['transaction_id'] = uuid.UUID(row_data['transaction_id'])
 
-    if not session.get(Transaction, row_data["transaction_id"]):
-        transaction = Transaction(**row_data)
-        session.add(transaction)
+        if not session.get(Transaction, row_data["transaction_id"]):
+            transaction = Transaction(**row_data)
+            session.add(transaction)
 
-session.commit()
-session.close()
+    session.commit()
+
+except Exception as e:
+    session.rollback()
+    print("Ett fel inträffade, ändringar har rullats tillbaka.")
+    print(e)
+
+finally:
+    session.close()
