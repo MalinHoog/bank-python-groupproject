@@ -1,27 +1,30 @@
-from db import Db
-# Importerar klassen Db från modulen db, som är den singletonklass vi analyserade tidigare. Den används för att hämta en återanvändbar databasanslutning.
+import pandas as pd
 
-class Transaction:
-# Definierar en klass Transaction som hanterar skapandet av transaktioner i en databas (troligtvis i en bankapplikation).
+# Globala växelkurser till SEK
+conversion_rates = {
+    "DKK": 1.5527, "EUR": 11.6084, "GBP": 13.7361, "JPY": 0.0660, "NOK": 0.9830,
+    "RMB": 1.4368, "USD": 10.2930, "ZAR": 0.5792, "ZMW": 0.3584, "AUD": 6.9731,
+    "BGN": 5.8452, "BRL": 1.9697, "CAD": 7.7143, "CHF": 12.0045, "CNY": 1.4680,
+    "CZK": 0.4550, "HKD": 1.3536, "HUF": 0.0289, "IDR": 0.0007, "ILS": 2.8540,
+    "INR": 0.1262, "ISK": 0.0766, "KRW": 0.0078, "MXN": 0.5796, "MYR": 2.3127,
+    "NZD": 6.3946, "PHP": 0.1844, "PLN": 2.6551, "RON": 2.2981, "SGD": 7.9076,
+    "THB": 0.2997, "TRY": 0.3220
+}
 
-# När ett nytt Transaction-objekt skapas:
-# Hämtas en databasanslutning via Db-singletonen med Db().get_conn().
-# Anslutningen sparas i self.conn, vilket innebär att varje Transaction-instans har tillgång till samma återanvändbara anslutning.
-    def __init__(self):
-        self.conn = Db().get_conn()
 
-# Metoden create tar två argument:
-# amount: Summan som ska sättas in eller tas ut.
-# account: Ett objekt (troligen en instans av en klass Account) som förväntas ha ett attribut nr (kontonummer).
-    def create(self, amount, account):
-        try: # try block används för att fånga eventuella fel vid databasoperationen.
-            with self.conn: # är en kontextmanager som säkerställer att transaktionen hanteras korrekt – t.ex. att commit/rollback sker automatiskt.
-                cursor = self.conn.cursor() # Skapar en ny databaspekare (cursor) för att kunna köra SQL-frågor.
-                cursor.execute("INSERT INTO transactions (amount, account_nr) VALUES (%s, %s)", [amount, account.nr]) #Kör en parameteriserad SQL-sats som lägger till en ny rad i tabellen transactions med kolumnerna amount och account_nr.
-                # %s används som platshållare, och värdena sätts separat som en lista ([amount, account.nr]) för att skydda mot SQL-injektion.
-                self.conn.commit() # Bekräftar ändringen i databasen (även om with-block ofta gör detta automatiskt, är det ändå vanligt att inkludera commit() explicitt).
-                print(f"Transaction '{amount}' created successfully.") # Skriver ut ett meddelande om att transaktionen lyckades.
-        except:
-            print(f"[Warning] Transaction blocked due to constraint violation, date or non approved customer.")
-            # Om något fel inträffar (t.ex. att SQL-satsen bryter mot en begränsning eller att kontot inte är godkänt), fångas felet här och ett varningsmeddelande skrivs ut.
-        return amount # Returnerar beloppet som försöktes sättas in – oavsett om transaktionen lyckades eller inte.
+def convert_to_sek(row):
+    amount = row["amount"]
+    currency = row["currency"]
+
+    if currency == "SEK":
+        return amount
+    elif currency in conversion_rates:
+        return amount * conversion_rates[currency]
+    else:
+        raise ValueError(f"Unsupported currency: {currency}")
+
+
+if __name__ == "__main__":
+    # Testkörning
+    df_customers = pd.read_csv("data/customers_clean.csv")
+    print(df_customers.head())
