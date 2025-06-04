@@ -41,7 +41,7 @@ class Transaction(Base):
     amount_sek = Column(Numeric)
 
 # Skapar anslutning till databasen i datagrap 'bank_womans'
-engine = create_engine("postgresql://postgres:Fo3aex6626@localhost:5432/bank_womans")
+engine = create_engine("postgresql://postgres:Fo3aex6626@localhost:5432/bank_boss_womans")
 Session = sessionmaker(bind=engine)
 session = Session()
 
