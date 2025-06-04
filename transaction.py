@@ -26,5 +26,5 @@ def convert_to_sek(row):
 
 if __name__ == "__main__":
     # Testkörning
-    df_customers = pd.read_csv("./data/sebank_customer_FINAL.csv")
+    df_customers = pd.read_csv("data/customers_clean.csv")
     print(df_customers.head())
