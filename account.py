@@ -26,11 +26,11 @@ class Account:
     def create(self, name, ssn, phone, address, post_code, municipality):
         # Valideringar med regex
         if not re.fullmatch(r"\d{6}-\d{4}", ssn):
-            raise ValueError("❌ Personnummer måste vara i formatet YYMMDD-XXXX")
+            raise ValueError("Personnummer måste vara i formatet YYMMDD-XXXX")
         if not re.fullmatch(r"^0(?!0)\d+$", phone):
-            raise ValueError("❌ Telefonnummer måste börja med 0 men inte 00")
+            raise ValueError("Telefonnummer måste börja med 0 men inte 00")
         if not re.fullmatch(r"\d{5}", post_code):
-            raise ValueError("❌ Postnummer måste vara exakt 5 siffror")
+            raise ValueError("Postnummer måste vara exakt 5 siffror")
 
         # Slumpmässigt generera bankkonto enligt SE8902-XXXXNNNNNNNNNNNNNN
         cursor = self.conn.cursor()
