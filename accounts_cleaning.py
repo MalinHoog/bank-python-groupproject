@@ -101,6 +101,6 @@ clean_df["Phone"] = clean_df["CleanedPhone"]
 clean_df = clean_df[["Customer", "Phone", "Personnummer", "BankAccount", "Street", "PostalCode", "City"]]
 garbage_df = garbage_df[["Customer", "Phone", "Personnummer", "BankAccount", "Address"]]
 
-# Och nu kan vi äntligen spara resultatet 
+# Och nu kan vi äntligen spara resultatet
 clean_df.to_csv("data/customers_clean.csv", index=False)
 garbage_df.to_csv("data/customers_not_valid.csv", index=False)
