@@ -5,7 +5,7 @@ import pandas as pd
 conn = psycopg2.connect(
     dbname="postgres",
     user="postgres",
-    password="Fo3aex6626",
+    password="HimeSessan24!",
     host="localhost",
     port="5432"
 )
@@ -28,7 +28,7 @@ cur.execute("""
 conn.commit()
 
 # Läs in data från CSV
-df = pd.read_csv("data\sebank_customer_FINAL.csv")  # byt till korrekt filnamn
+df = pd.read_csv("data/otherdatafiles/sebank_customer_FINAL.csv")  # byt till korrekt filnamn
 
 # Lägg in rader i databasen
 for _, row in df.iterrows():

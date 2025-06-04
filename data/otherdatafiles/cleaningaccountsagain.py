@@ -46,7 +46,7 @@ df.to_csv("adresser_med_gatunummer_00_phonefixed.csv", index=False)
 
 """
 
-df = pd.read_csv("data/otherdatafiles/sebank_customers_finalfinally.csv")
+df = pd.read_csv("sebank_customers_finalfinally.csv")
 
 # Lägg till en 0 framför varje telefonnummer
 df["Phone"] = "0" + df["Phone"].astype(str).str.strip()
