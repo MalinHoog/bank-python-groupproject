@@ -28,6 +28,7 @@ colorama==0.4.6
 comm==0.2.2
 contourpy==1.3.2
 coolname==2.2.0
+coverage==7.8.2
 cryptography==45.0.3
 dask==2025.5.1
 dateparser==1.2.1
@@ -118,6 +119,7 @@ pillow==11.2.1
 platformdirs==4.3.8
 pluggy==1.6.0
 posthog==3.25.0
+pprintpp==0.4.0
 prefect==3.4.5
 prometheus_client==0.22.1
 prompt_toolkit==3.0.51
@@ -125,6 +127,8 @@ psutil==7.0.0
 psycopg2==2.9.10
 pure_eval==0.2.3
 pyarrow==20.0.0
+pycountry==24.6.1
+pycountry-convert==0.7.2
 pycparser==2.22
 pydantic==2.11.5
 pydantic-extra-types==2.10.5
@@ -133,6 +137,8 @@ pydantic_core==2.33.2
 Pygments==2.19.1
 pyparsing==3.2.3
 pytest==8.3.5
+pytest-cov==6.1.1
+pytest-mock==3.14.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.0
 python-json-logger==3.3.0
@@ -146,6 +152,7 @@ pyzmq==26.4.0
 readchar==4.2.1
 referencing==0.36.2
 regex==2024.11.6
+repoze.lru==0.7
 requests==2.32.3
 requests-oauthlib==2.0.0
 rfc3339-validator==0.1.4
