@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65c2601c-ae55-439d-a9cc-4417f6cf450a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bank-python-groupproject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bank-python-groupproject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customers-report.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/customers-report.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customers_logs.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/customers_logs.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customers_logs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/customers_logs.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transaction_report.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/transaction_report.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/validateTransactionsFinal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/validateTransactionsFinal.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/validatingAccountsFinal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/validatingAccountsFinal.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
